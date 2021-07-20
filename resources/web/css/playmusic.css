@@ -1,0 +1,57 @@
+:root {
+    --primary-color: #ec1f55;
+    --text-color: #333;
+}
+
+.progress {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 6px !important;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
+
+.progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px !important;
+    height: 6px;
+    background-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.volProgress {
+    height: 6px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: 0.2s;
+    transition: opacity 0.2s;
+}
+
+.volProgress::-webkit-slider-thumb {
+    cursor: pointer;
+}
+
+.play .icon-pause {
+    display: none;
+}
+
+.play.playing .icon-pause {
+    display: inline-block;
+}
+
+.play.playing .icon-play {
+    display: none;
+}
+
+.random-song.active i {
+    color: var(--primary-color) !important;
+}
+
+.repeat-song.active i {
+    color: var(--primary-color) !important;
+}

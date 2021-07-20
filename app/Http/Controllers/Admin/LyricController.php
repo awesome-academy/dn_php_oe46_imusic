@@ -14,6 +14,7 @@ class LyricController extends Controller
     public function index()
     {
         $lyrics = Lyric::getLyric()->paginate(config('app.paginateUser'));
+
         return view('admin.lyric.index', compact('lyrics'));
     }
 
@@ -21,7 +22,7 @@ class LyricController extends Controller
     {
         $lyricParent = Lyric::where('id', '=', config('app.userParent'))->get();
         $songs = Song::has('lyrics', 0)->get();
-
+        
         return view('admin.lyric.create', compact('songs', 'lyricParent'));
     }
 
@@ -75,6 +76,7 @@ class LyricController extends Controller
 
     public function destroy($id)
     {
+        //
         try {
             $lyric = Lyric::destroy($id);
             return response()->json([

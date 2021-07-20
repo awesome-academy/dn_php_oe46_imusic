@@ -16,5 +16,4 @@ return [
     'action'=>'Hành động',
     'notId' => 'Không thể tìm thấy Id',
     'active' => 'Thực hiện show bài viet',
-
 ];

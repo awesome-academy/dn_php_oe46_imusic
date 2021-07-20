@@ -16,6 +16,7 @@
               <a href="#">
                 <svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M291.301 81.778l166.349 373.587-19.301 8.635-166.349-373.587zM64 463.746v-384h21.334v384h-21.334zM192 463.746v-384h21.334v384h-21.334z"></path></svg>
                 <span> @lang('home.libri')</span>
+              </a>
             </li>
           </ul>
         </div>
@@ -53,6 +54,10 @@
           <div class="input-field second-wrap">
             <button class="btn-search" type="button">@lang('home.search')</button>
           </div>
+          <input id="search" type="text" placeholder= "@lang('home.placeholder')" />
+        </div>
+        <div class="input-field second-wrap">
+          <button class="btn-search" type="button">@lang('home.search')</button>
         </div>
       </form>
       <div>
@@ -88,3 +93,4 @@
              </div>
           </div>
       </div>
+

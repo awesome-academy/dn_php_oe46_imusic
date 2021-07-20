@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        $categoriesParent = Category::where('parent_id', '=', config('app.paginate_num'))->get();
+        $categoriesParent = Category::where('parent_id', '=', config('app.categoryParent'))->get();
 
         return view('admin.category.create', compact('categoriesParent'));
     }

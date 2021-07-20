@@ -7,11 +7,15 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>LMussic - Trang quản lý</title>
-    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <base href="{{ asset('') }}">
+    <!-- Bootstrap Core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/sb-admin.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/dataTables.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/sb-admin.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
@@ -68,8 +72,6 @@
                     </li>
                     <li class="">
                         <a href="{{ route('categories.index') }}"><i class="fa fa-fw fa-bar-chart-o"></i> @lang('adminhome.category')</a>
-
-                        <a href=""><i class="fa fa-fw fa-bar-chart-o"></i> @lang('adminhome.category')</a>
                     </li>
                     <li class="">
                         <a href="{{ route('songs.index')}}"><i class="fa fa-play-circle-o" aria-hidden="true"></i> @lang('adminhome.song') </a>
@@ -108,5 +110,6 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="{{asset('js/delartis.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/delCategory.js')}}"></script>
+    <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 </body>
 </html>

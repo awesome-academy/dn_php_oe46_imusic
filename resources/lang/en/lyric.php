@@ -19,6 +19,4 @@ return [
     'notId' => 'Not find id',
     'updatesuccess' => 'Update lyric success',
     'active' => "Active show success",
-
-
 ];

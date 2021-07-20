@@ -21,7 +21,6 @@ return [
     'albEdit' => 'Sửa',
     'albDelete' => 'Xóa',
     'imageRequired' => 'Chưa có tệp hình ảnh',
-    'imageExtension' => 'Tệp này phải có đuôi jpg, jpeg hoặc png',
     'editError' => 'Không thể tìm thấy album',
     'imageExtension' => 'Tệp hình ảnh phải có đuôi jpg, jpeg hoặc png',
 ];

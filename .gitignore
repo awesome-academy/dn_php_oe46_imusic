@@ -17,3 +17,14 @@ yarn-error.log
 public/css
 public/js
 public/image
+
+resources/views/layouts/footer.blade.php
+resources/views/layouts/header.blade.php
+resources/views/song-play.blade.php
+resources/web/css/main.css 
+resources/web/css/playmusic.css 
+resources/web/js/play.js 
+resources/web/js/playmusic.js
+resources/lang/en/homePage.php
+resources/lang/vi/homePage.php
+public/mix-manifest.json

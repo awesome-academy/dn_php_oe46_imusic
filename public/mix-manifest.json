@@ -4,15 +4,15 @@
     "/js/jquery-3.5.1.js": "/js/jquery-3.5.1.js",
     "/js/delartis.js": "/js/delartis.js",
     "/js/delCategory.js": "/js/delCategory.js",
-    "/js/showsong.js": "/js/showsong.js",
-    "/js/comment.js": "/js/comment.js",
-    "/js/add_lyrc.js": "/js/add_lyrc.js",
     "/js/playmusic.js": "/js/playmusic.js",
     "/css/app.css": "/css/app.css",
     "/js/jquery.dataTables.min.js": "/js/jquery.dataTables.min.js",
     "/js/dataTables.bootstrap4.min.js": "/js/dataTables.bootstrap4.min.js",
+    "/css/music.css": "/css/music.css",
     "/css/main.css": "/css/main.css",
+    "/css/style.css": "/css/style.css",
+    "/storage/img/en.png": "/storage/img/en.png",
+    "/storage/img/vn.png": "/storage/img/vn.png",
     "/js/ckeditor.js": "/js/ckeditor.js",
-    "/css/playmusic.css": "/css/playmusic.css",
-    "/css/style.css": "/css/style.css"
+    "/css/playmusic.css": "/css/playmusic.css"
 }
