@@ -27,7 +27,7 @@ class SongRequest extends FormRequest
             'cate_id' => 'not_in:0',
             'name' => 'required',
             'art_id' => 'not_in:0',
-            'link' => 'required|unique:songs,link',
+            'link' => 'required',
             'image' => 'required|mimes:jpg,jpeg,png',
         ];
     }

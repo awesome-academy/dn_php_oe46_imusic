@@ -1,7 +1,6 @@
 @extends('admin.layout.app')
 @section('content')
     <div class="container-fluid">
-        <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
@@ -20,7 +19,7 @@
         <div class="table-responsive">
             <h3>@lang('category.cateManage')<a href="{{ route('categories.create') }}"><i
                         class="fa fa-plus-circle"></i></a> </h3>
-            <table id="dtBasicExample" class="table table-striped table-sm" cellspacing="0" width="100%">
+            <table  id="dtBasicExample" class="table table-striped table-sm" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th class="th-sm">@lang('category.stt')</th>

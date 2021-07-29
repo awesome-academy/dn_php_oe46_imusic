@@ -6,7 +6,8 @@
             <a href="#"><span class="white-font">{{ $song->artist->name }}</span></a>
             <a class="pink_floyd" href="#"><span class="white-font">{{ $song->name }}</span></a>
         </div>
-        <a class="heart" href="#"><i class="far fa-heart"></i></a>
+        <a class="add-favorite-song" data-song ="{{ $song->id }}" href="#"><i class="far fa-heart"></i></a>
+        <a class="view"><i class="fa fa-headphones" aria-hidden="true"></i> {{ $song->view }}</a>
     </div>
     <div class="center">
         <div class="top">

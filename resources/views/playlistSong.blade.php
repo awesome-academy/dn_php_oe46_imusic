@@ -54,28 +54,26 @@
                                             <i class="far fa-pause-circle icon-pause"></i>
                                         </a>
                                         <span class="single-item__export more-option">
-                                            @if (isset($playlist))
                                             <i class="fa fa-cog" aria-hidden="true"></i>
-                                                <ul class="more-option-view">
-                                                    <li><a class="add-favorite-song" data-song ="{{ $song->id }}" href=""><i class="fa fa-heart" aria-hidden="true"></i> Add to favorite</a></li>
-                                                    <li class="add-to-playlist"><a href=""><i class="fa fa-plus-circle" aria-hidden="true"></i> Add to playlists</a>
-                                                        <ul class="sub-more">
-                                                            @if (Auth::user()->playlists)
-                                                                @foreach (Auth::user()->playlists as $item)
-                                                                    <li><a class="add-playlist-song" data-playlist=" {{ $item->id }}" data-song="{{ $song->id }}" href="">
-                                                                        <i class="fa fa-play" aria-hidden="true"></i> {{ $item->name }}</a>
-                                                                    </li>
-                                                                @endforeach
-                                                            @endif
-                                                        </ul>
-                                                    </li>
+                                            <ul class="more-option-view">
+                                                <li><a class="add-favorite-song" data-song ="{{ $song->id }}" href=""><i class="fa fa-heart" aria-hidden="true"></i> Add to favorite</a></li>
+                                                <li class="add-to-playlist"><a><i class="fa fa-plus-circle" aria-hidden="true"></i> Add to playlists</a>
+                                                    <ul class="sub-more">
+                                                        @if (Auth::user()->playlists)
+                                                            @foreach (Auth::user()->playlists as $item)
+                                                                <li><a class="add-playlist-song" data-playlist=" {{ $item->id }}" data-song="{{ $song->id }}" href="">
+                                                                    <i class="fa fa-play" aria-hidden="true"></i> {{ $item->name }}</a>
+                                                                </li>
+                                                            @endforeach
+                                                        @endif
+                                                    </ul>
+                                                </li>
+                                                @if (isset($playlist))
                                                     <li><a class="del-playlist-song" data-playlist="{{ $playlist->id }}" data-song="{{ $song->id }}" href="">
                                                         <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
                                                     </li>
-                                                </ul>
-                                            @else
-                                                <a class="add-favorite-song heart-box" data-song ="{{ $song->id }}" href=""><i class="fa fa-heart" aria-hidden="true"></i></a>   
-                                            @endif
+                                                @endif
+                                            </ul>
                                         </span>
                                     </li>
                                 @endforeach

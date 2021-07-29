@@ -277,7 +277,7 @@ h1, h2, h3, h4, a {
   font-size: 12px;
 }
 
-.main .box_main .music a {
+.main .box_main .music .box_music {
   display: inline-block;
   padding: 15px;
 }
@@ -1055,7 +1055,7 @@ max-width: 400px;
 
 #add_lyric{
   width: 80px;
-  height: 3.me-2
+  height: 300px;
   margin-right: .5rem!important;
   position: 5px 0px;
   border: 1px solid #222227;
@@ -1077,7 +1077,7 @@ max-width: 400px;
 }
 
 .dropdown-content_r {
-  display: none;.me-2
+  display: none;
   margin-right: .5rem!important;
   position: absolute;
   left:80px;

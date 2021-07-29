@@ -44,15 +44,21 @@ class PlaylistController extends Controller
 
     public function addAlbum($id)
     {
-        try {
-            $user = Auth::user()->albums()->attach($id);
-
-            return response()->json([
-                'error' => false,
-                'user' => $user,
-            ], 200);
-        } catch (Throwable $e) {
-            return redirect()->back()->with('danger', trans('playlist.notFoundAlbum'));
+        $check = Auth::user()->albums->where('id', $id)->count();
+        if ($check > 0) {
+            return $message = 'This album is already exists in your playlist.';
+        } else {
+            try {
+                $user = Auth::user()->albums()->attach($id);
+                $album = Album::where('id', $id)->get();
+                return response()->json([
+                    'error'  => false,
+                    'user'   => $user,
+                    'album' => $album,
+                ], 200);
+            } catch (Throwable $e) {
+                return redirect()->back()->with('danger', trans('playlist.notFoundAlbum'));
+            }
         }
     }
 

@@ -12,8 +12,8 @@ $(document).ready(function() {
         var song = $(this).data('song');
        
         $.ajax({
-            type:'get',
-            url: 'admin/albums/' + album + '/add-song/' + song,
+            method:'get',
+            url: '/admin/albums/'+album+'/add-song/'+song,
             success: function(data)
             {   
                 $('#song-' + song).remove();
@@ -27,7 +27,7 @@ $(document).ready(function() {
        
         $.ajax({
             type:'get',
-            url: 'admin/albums/' + album + '/del-song/' + song,
+            url: '/admin/albums/' + album + '/del-song/' + song,
             success: function(data)
             {   
                 $('#song-' + song).remove();

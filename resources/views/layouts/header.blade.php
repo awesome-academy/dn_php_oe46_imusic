@@ -7,7 +7,7 @@
           <a href="#"><img class="logo-small white" src="img/icons/logo-small.svg" alt="Spotify"></a>
           <ul class="menu">
             <li>
-              <a href="{{ route('home') }}">
+              <a class="_home" href="">
                 <svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M448 463.746h-149.333v-149.333h-85.334v149.333h-149.333v-315.428l192-111.746 192 110.984v316.19z"></path></svg>
                 <span class="white"> @lang('home.home')</span>
 
@@ -17,15 +17,22 @@
               <div class="dropdown_r">
                 <p class="dropbtn_r">  <i class="far fa-sort"></i> Hot</p>
                 <div class="dropdown-content_r">
-                  <a href="#" class="_hotS" data-song ="1">Song Hot</a>
-                  <a href="#" class="_hotA" data-album="1">Ablum Hot</a>
+                  <a href="#" class="_hotS" data-type ="song">Song Hot</a>
+                  <a href="#" class="_hotS" data-type="album">Ablum Hot</a>
                 </div>
                 </div>
             </li>
             <li>
-              <a href="#">
+              <a href="" class="top_tren">
+                <svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M291.301 81.778l166.349 373.587-19.301 8.635-166.349-373.587zM64 463.746v-384h21.334v384h-21.334zM192 463.746v-384h21.334v384h-21.334z"></path></svg>
+                <span> @lang('home.top')</span>
+              </a>
+            </li>
+            <li>
+              <a href="" class="manage-playlist">
                 <svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path d="M291.301 81.778l166.349 373.587-19.301 8.635-166.349-373.587zM64 463.746v-384h21.334v384h-21.334zM192 463.746v-384h21.334v384h-21.334z"></path></svg>
                 <span> @lang('home.libri')</span>
+              </a>
             </li>
           </ul>
         </div>
@@ -57,7 +64,7 @@
 </div>
 <div class="main">
     <div class="upgrade">
-      <form>
+      <form id="search-form" method="get">
         <div class="inner-form">
           <div class="input-field first-wrap">
             <div class="svg-wrapper">
@@ -68,17 +75,17 @@
             <input id="search" type="text" placeholder= "@lang('home.placeholder')" />
           </div>
           <div class="input-field second-wrap">
-            <button class="btn-search" type="button">@lang('home.search')</button>
+            <button class="btn-search" type="submit">@lang('home.search')</button>
           </div>
         </div>
       </form>
       <div>
           @if(Auth::check())
           <a class="btn_signup " id="pro_file" data-user-profile="{{ auth()->user()->id}}" href=""><i class="fas fa-user-circle"></i> {{auth()->user()->fullname}} </a>
-          <a class="btn_login " href="{{route('logout')}}">LOG OUT</a>
+          <a class="btn_login " href="{{route('logout')}}">@lang('home.logout')</a>
           @else
-          <a class="btn_signup " href="{{route('get.register')}}">SIGN UP</a>
-          <a class="btn_login " href="{{route('get.login')}}">LOG IN</a>
+          <a class="btn_signup " href="{{route('get.register')}}">@lang('home.signup')</a>
+          <a class="btn_login " href="{{route('get.login')}}">@lang('home.login')</a>
           @endif
       </div>
         <div class="nav-item dropdown">
@@ -105,4 +112,3 @@
              </div>
           </div>
       </div>
-

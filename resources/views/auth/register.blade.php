@@ -12,12 +12,12 @@
   <body>
      <div class="card bg-light">
         <article class="card-body mx-auto">
-            <h4 class="card-title mt-3 text-center">Tạo tài khoản</h4>
-                <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i> Đăng ký bằng Google</a>
-                <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i> Đăng ký bằng facebook</a>
+            <h4 class="card-title mt-3 text-center">@lang('home.create')</h4>
+                <a href="{{ route('social.oauth', 'google') }}" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i> @lang('home.logingg')</a>
+                <a href="{{ route('social.oauth', 'facebook') }}" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i> @lang('home.loginfb')</a>
             </p>
             <p class="divider-text">
-                <span class="bg-light">Hoặc</span>
+                <span class="bg-light">@lang('home.or')</span>
             </p>
             <form action="{{route('post.register')}}" method="POST">
                 @csrf
@@ -73,9 +73,9 @@
                     <input class="form-control @error('password_confirmation') is-invalid @enderror" placeholder="Confirmation password" type="password" name="password_confirmation" />
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+                    <button type="submit" class="btn btn-primary btn-block">@lang('home.signup')</button>
                 </div>
-                <p class="text-center">Bạn đã có tài khoản ? <a href="{{ route('get.login')}}">Đăng nhập </a></p>
+                <p class="text-center">@lang('home.account') ? <a href="{{ route('get.login')}}"> @lang('home.login') </a></p>
             </form>
         </article>
     </div>

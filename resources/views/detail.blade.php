@@ -1,6 +1,4 @@
-@extends('layouts.app')
-@section('content')
- <section class="box_main">
+<section class="box_main">
 <div class="container-fluid">
     <div class="row row--grid">
         <!-- title -->
@@ -30,12 +28,21 @@
                             {{ count($songs).' '.trans('homePage.tracks') }} 
                         </span>
                     </div>
-                        @if (isset($album))
-                            <a href="" data-id ="{{ $album->id }}" class="release__buy open-modal add-album-btn">
-                                <i class="fa fa-plus-circle nonAdd" aria-hidden="true"></i>
-                                <i class="fa fa-check-circle added" aria-hidden="true"></i>
-                                {{ trans('homePage.addAlbum') }} 
-                            </a>
+                       @if (isset($album))
+                          @if($check !='')
+                            @if(count($check) > 0)
+                                <a class="release__buy open-modal">
+                                    <i class="fa fa-check-circle added" aria-hidden="true"></i>
+                                    {{ trans('homePage.addedAlbum') }}
+                                </a>
+                            @else
+                                <a href="" data-id ="{{ $album->id }}" class="release__buy open-modal add-album-btn">
+                                    <i class="fa fa-plus-circle nonAdd" aria-hidden="true"></i>
+                                    <i class="fa fa-check-circle added" aria-hidden="true"></i>
+                                    {{ trans('homePage.addAlbum') }}
+                                </a>
+                            @endif
+                           @endif
                         @elseif (isset($artist))
                             @lang('homePage.artistInfo')
                             <p>{{ $artist->info }}</p>
@@ -47,7 +54,7 @@
                         <ul class="main__list main__list--playlist main__list--dashbox">
                             @if (count($songs) > 0)
                                 @foreach ($songs as $song)
-                                    <li class="single-item">
+                                    <li id="songItem-{{ $song->id }}" class="single-item">
                                         <a class="single-item__cover">
                                             <img src="{{ $song->image }}" alt="" />
                                         </a>
@@ -59,9 +66,25 @@
                                             <i class="far fa-play-circle icon-play"></i>
                                             <i class="far fa-pause-circle icon-pause"></i>
                                         </a>
-                                        <a href="#" title="{{ trans('homePage.addSong') }}" class="single-item__export">
-                                            <i class="fa fa-plus-square" aria-hidden="true"></i>
-                                        </a>
+                                        <span class="single-item__export more-option">
+                                            <i class="fa fa-cog" aria-hidden="true"></i>
+                                            <ul class="more-option-view">
+                                                <li><a class="add-favorite-song" data-song ="{{ $song->id }}" href=""><i class="fa fa-heart" aria-hidden="true"></i> Add to favorite</a></li>
+                                                <li class="add-to-playlist"><a><i class="fa fa-plus-circle" aria-hidden="true"></i> Add to playlists</a>
+                                                    <ul class="sub-more">
+                                                        @if(Auth::check())
+                                                            @if (Auth::user()->playlists)
+                                                                @foreach (Auth::user()->playlists as $item)
+                                                                    <li><a class="add-playlist-song" data-playlist=" {{ $item->id }}" data-song="{{ $song->id }}" href="">
+                                                                        <i class="fa fa-play" aria-hidden="true"></i> {{ $item->name }}</a>
+                                                                    </li>
+                                                                @endforeach
+                                                            @endif
+                                                        @endif
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </span>
                                     </li>
                                 @endforeach
                             @else 
@@ -76,255 +99,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-12 col-lg-8">
-            <div class="article">
-                <div class="article__content">
-                    <h4>About new album</h4>
-
-                    <p>
-                        There are many <b>variations</b> of passages of Lorem Ipsum available, but the majority have <a href="#">suffered</a> alteration in some form, by injected humour, or randomised words which don't look even slightly
-                        believable.
-                    </p>
-
-                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                </div>
-                <div class="comments">
-                    <div class="comments__title">
-                        <h4>Comments</h4>
-                        <span>3</span>
-                    </div>
-
-                    <ul class="comments__list">
-                        <li class="comments__item">
-                            <div class="comments__autor">
-                                <img class="comments__avatar" src="img/avatar.svg" alt="" />
-                                <span class="comments__name">John Doe</span>
-                                <span class="comments__time">30.08.2021, 17:53</span>
-                            </div>
-                            <p class="comments__text">
-                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If
-                                you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-                            </p>
-                            <div class="comments__actions">
-                                <div class="comments__rate">
-                                    <button type="button">
-
-                                        12
-                                    </button>
-
-                                    <button type="button">
-                                        7
-
-                                    </button>
-                                </div>
-
-                                <button type="button">
-
-                                    <span>Reply</span>
-                                </button>
-                                <button type="button">
-
-                                    <span>Quote</span>
-                                </button>
-                            </div>
-                        </li>
-
-                        <li class="comments__item comments__item--answer">
-                            <div class="comments__autor">
-                                <img class="comments__avatar" src="img/avatar.svg" alt="" />
-                                <span class="comments__name">John Doe</span>
-                                <span class="comments__time">24.08.2021, 16:41</span>
-                            </div>
-                            <p class="comments__text">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                                scrambled it to make a type specimen book.
-                            </p>
-                            <div class="comments__actions">
-                                <div class="comments__rate">
-                                    <button type="button">
-
-                                        10
-                                    </button>
-
-                                    <button type="button">
-                                        0
-
-                                    </button>
-                                </div>
-
-                                <button type="button">
-
-                                    <span>Reply</span>
-                                </button>
-                                <button type="button">
-
-                                    <span>Quote</span>
-                                </button>
-                            </div>
-                        </li>
-
-                        <li class="comments__item">
-                            <div class="comments__autor">
-                                <img class="comments__avatar" src="img/avatar.svg" alt="" />
-                                <span class="comments__name">John Doe</span>
-                                <span class="comments__time">07.08.2021, 14:33</span>
-                            </div>
-                            <p class="comments__text">
-                                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If
-                                you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-                            </p>
-                            <div class="comments__actions">
-                                <div class="comments__rate">
-                                    <button type="button">
-
-                                        7
-                                    </button>
-
-                                    <button type="button">
-                                        4
-
-                                    </button>
-                                </div>
-
-                                <button type="button">
-
-                                    <span>Reply</span>
-                                </button>
-                                <button type="button">
-
-                                    <span>Quote</span>
-                                </button>
-                            </div>
-                        </li>
-                    </ul>
-
-                    <form action="#" class="comments__form">
-                        <div class="sign__group">
-                            <input type=""  id="text" name="text" class="sign__textarea" placeholder="Add comment">
-                        </div>
-                        <button type="button" class="sign__btn">Send</button>
-                    </form>
-                </div>
-                <!-- end comments -->
-            </div>
-        </div>
-
-        <div class="col-12 col-lg-4">
-            <!-- releases -->
-            <div class="row row--sidebar">
-                <!-- title -->
-                <div class="col-12">
-                    <div class="main__title main__title--sidebar">
-                        <h3>Other releases</h3>
-                    </div>
-                </div>
-                <!-- end title -->
-
-                <div class="col-6 col-sm-4 col-lg-6">
-                    <div class="album album--sidebar">
-                        <div class="album__cover">
-                            <img src="img/covers/cover8.jpg" alt="" />
-                            <a href="release.html">
-
-                            </a>
-                            <span class="album__stat">
-                                <span>
-
-                                    22
-                                </span>
-                                <span>
-
-                                    19 503
-                                </span>
-                            </span>
-                        </div>
-                        <div class="album__title">
-                            <h3><a href="release.html">Space Melody</a></h3>
-                            <span><a href="artist.html">VIZE</a> &amp; <a href="artist.html">Alan Walker</a> &amp; <a href="artist.html">Leony</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-sm-4 col-lg-6">
-                    <div class="album album--sidebar">
-                        <div class="album__cover">
-                            <img src="img/covers/cover2.jpg" alt="" />
-                            <a href="release.html">
-
-                            </a>
-                            <span class="album__stat">
-                                <span>
-
-                                    7
-                                </span>
-                                <span>
-
-                                    4 731
-                                </span>
-                            </span>
-                        </div>
-                        <div class="album__title">
-                            <h3><a href="release.html">Said Sum</a></h3>
-                            <span><a href="artist.html">Moneybagg</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-sm-4 col-lg-6">
-                    <div class="album album--sidebar">
-                        <div class="album__cover">
-                            <img src="img/covers/cover3.jpg" alt="" />
-                            <a href="release.html">
-
-                            </a>
-                            <span class="album__stat">
-                                <span>
-
-                                    16
-                                </span>
-                                <span>
-
-                                    300k
-                                </span>
-                            </span>
-                        </div>
-                        <div class="album__title">
-                            <h3><a href="release.html">I Love My Country</a></h3>
-                            <span><a href="artist.html">Florida Georgia</a></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-6 col-sm-4 col-lg-6">
-                    <div class="album album--sidebar">
-                        <div class="album__cover">
-                            <img src="img/covers/cover6.jpg" alt="" />
-                            <a href="release.html">
-
-                            </a>
-                            <span class="album__stat">
-                                <span>
-
-                                    16
-                                </span>
-                                <span>
-
-                                    100k
-                                </span>
-                            </span>
-                        </div>
-                        <div class="album__title">
-                            <h3><a href="release.html">Toosie Slide</a></h3>
-                            <span><a href="artist.html">Drake</a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
-</section>
-</div>
-</div>
-@endsection
+

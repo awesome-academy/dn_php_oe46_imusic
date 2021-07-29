@@ -8,12 +8,13 @@ use App\Models\Artist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use App\Models\Category;
+use App\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function changeLanguage($locale)
     {
-        App::setlocale($locale);
         session()->put('locale', $locale);
         return redirect()->back();
     }
@@ -32,10 +33,12 @@ class HomeController extends Controller
     {
         try {
             $song = Song::find($id);
+            $song->view += 1;
+            $song->save();
 
             return view('song-play', compact('song'));
         } catch (Throwable $e) {
-            return redirect()->back()->with('danger', trans('songNotFound'));
+            return redirect()->back()->with('danger', trans('homePage.songNotFound'));
         }
     }
 
@@ -53,23 +56,66 @@ class HomeController extends Controller
 
     public function renderHome(Request $request)
     {
-        $artists = Artist::getAll()->limit(6)->get();
-        $albums  = Album::albumHot()->get();
-        $songs = Song::songHot()->get();
+        $songs = Song::orderBy('created_at', 'desc')->take(config('app.home_take_number'))->get();
+        $albums = Album::orderBy('created_at', 'desc')->take(config('app.home_take_number'))->get();
+        $artists = Artist::has('songs')->take(config('app.home_take_number'))->get();
 
         return response()->json(['songs' => $songs, 'artists' => $artists , 'albums' => $albums], 200);
     }
 
-    public function hotAlbumMusic($id)
+    public function hotAlbumMusic($type)
     {
-        $songs = Song::where('hot', $id)->get();
-        $songs = $songs->map(function ($item) {
-            $item->setAttribute('artist_name', $item->artist->name);
+        if($type == "song")
+        {
+            $songs = Song::songHot()->get();
+            return response()->json(['songs' => $songs], 200);
+        }
+        if($type == "album")
+        {
+            $albums = Album::albumHot()->get();
+            return response()->json(['albums' => $albums], 200);
+        }
+    }
 
-            return $item;
-        });
-        $albums = Album::where('hot', $id)->get();
+    public function topTrending()
+    {
+        $songs = Song::select('view', 'name', 'image','id')->whereMonth('created_at', date('m'))
+        ->orderBy('view', 'desc')->get();
 
-        return response()->json(['songs' => $songs, 'albums' => $albums], 200);
+        return view('music.top-trending', compact('songs'));
+    }
+
+    public function searchFeature($search)
+    {
+        try {
+            $songs = Song::where('name', 'like', '%'.$search.'%')->take(config('app.home_take_number'))->get();
+            $albums = Album::where('name', 'like', '%'.$search.'%')->take(config('app.home_take_number'))->get();
+            $artists = Artist::where('name', 'like', '%'.$search.'%')->take(config('app.home_take_number'))->get();
+
+            return view('search', compact('songs', 'albums', 'artists', 'search'));
+        } catch (Throwable $e) {
+            return redirect()->back()->with('danger', trans('homePage.noSearchResult'));
+        }
+    }
+
+    public function searchType($type, $search)
+    {
+        try {
+            if ($type == 'song') {
+                $songs = Song::where('name', 'like', '%'.$search.'%')->paginate(config('app.search_take_num'));
+
+                return view('searchDetail', compact('songs', 'search'));
+            } elseif ($type == 'album') {
+                $albums = Album::where('name', 'like', '%'.$search.'%')->paginate(config('app.search_take_num'));
+
+                return view('searchDetail', compact('albums', 'search'));
+            } elseif ($type == 'artist') {
+                $artists = Artist::where('name', 'like', '%'.$search.'%')->paginate(config('app.search_take_num'));
+
+                return view('searchDetail', compact('artists', 'search'));
+            }
+        } catch (Throwable $e) {
+            return redirect()->back()->with('danger', trans('homePage.noSearchResult'));
+        }
     }
 }

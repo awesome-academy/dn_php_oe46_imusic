@@ -9,9 +9,7 @@
                 <!-- Form Error List -->
                 <div class="alert alert-danger">
                     <strong>{{ trans('category.errorAlert') }}</strong>
-
                     <br><br>
-
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>

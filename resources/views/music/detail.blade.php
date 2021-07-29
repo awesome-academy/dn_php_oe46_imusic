@@ -27,24 +27,36 @@
                         <ul class="main__list main__list--playlist main__list--dashbox">
                              @foreach($cate_songs as $cate_song)
                             <li class="single-item">
-                                <a data-playlist=""
-                                    data-title="1. Got What I Got"
-                                    data-artist="Jason Aldean"
-                                    data-img="img/covers/cover.svg"
-                                    href="https://dmitryvolkov.me/demo/blast2.0/audio/12071151_epic-cinematic-trailer_by_audiopizza_preview.mp3"
-                                    class="single-item__cover">
+                                <a class="single-item__cover">
                                     <img src="/storage/{{$cate_song->image}}" alt="" />
                                 </a>
                                 <div class="single-item__title">
                                     <h4><a href="#">{{$loop->index+1}}.{{$cate_song->name}}</a></h4>
                                     <span><a href="#">{{$cate_song->artist->name}}</a></span>
                                 </div>
-                                <a href="#" class="single-item__add">
-                                <i class="fas fa-plus"></i>
+                                <a href="" data-id="{{ $cate_song->id }}" title="{{ trans('homePage.playSong') }}" class="single-item__add play play-music">
+                                    <i class="far fa-play-circle icon-play"></i>
+                                    <i class="far fa-pause-circle icon-pause"></i>
                                 </a>
-                                <a class="single-item__export">
-                                <i class="fas fa-caret-right" data-song-c = "{{ $cate_song->id }}" id="cate_s"></i>
-                                </a>
+                                <span class="single-item__export more-option">
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    <ul class="more-option-view">
+                                        <li><a class="add-favorite-song" data-song ="{{ $cate_song->id }}" href=""><i class="fa fa-heart" aria-hidden="true"></i> Add to favorite</a></li>
+                                        <li class="add-to-playlist"><a><i class="fa fa-plus-circle" aria-hidden="true"></i> Add to playlists</a>
+                                            <ul class="sub-more">
+                                                @if (Auth::check())
+                                                @if (Auth::user()->playlists)
+                                                    @foreach (Auth::user()->playlists as $item)
+                                                        <li><a class="add-playlist-song" data-playlist=" {{ $item->id }}" data-song="{{ $cate_song->id }}" href="">
+                                                            <i class="fa fa-play" aria-hidden="true"></i> {{ $item->name }}</a>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                                @endif
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </span>
                             </li>
                             @endforeach
                         </ul>
@@ -56,22 +68,23 @@
     <div class="col-12 col-lg-8">
         <div class="article">
             <div class="article__content">
-                <h4>@lang('home.lyric') </h4>
+                <h4>@lang('home.lyris') </h4>
+                   <div class="show_lyric"></div>
+                   <span class="message"></span>
                   @if(isset($song->lyrics->content))
-                   {!!$song->lyrics->content!!}
-                   <br>
+                  {!! $song->lyrics->content!!}
                   @else
-                  <span>
+                  <span class="formlyric">
                       Bạn có thể thêm lời bài hát
                      <span  id="formButton"><i class="fas fa-plus-circle"></i></span>
                         <form id="form1">
                           <b> {{$song->name}}</b>
                           <br>
-                          <textarea name="content" class="content" cols="65" rows="5">
+                          <textarea name="content" class="content" cols="65" rows="5" required>
                           </textarea>
                           <br><br>
                           <button type="button" id="add_lyric" data-song
-                          ="{{$song->id}}" data-user="{{auth()->user()->id}}">Thêm</button>
+                          ="{{$song->id}}" data-user="{{ Auth::check() ? auth()->user()->id : ''}}">Thêm</button>
                         </form>
                   </span>
                   @endif
@@ -85,7 +98,7 @@
                     <ul class="comments__list">
                         <li class="comments__item">
                             <div class="comments__autor">
-                                <img class="comments__avatar" src="/storage/{{ auth()->user()->avatar }}" alt="" />
+                                <img class="comments__avatar" src="/storage/{{get_data_user('web','avatar')}}" alt="" />
                                 <span class="comments__name">{{$comment->user->fullname}}</span>
                                 <span class="comments__time">{{$comment->created_at->diffForHumans()}}</span>
                             </div>
@@ -106,6 +119,9 @@
                         </li>
                     </ul>
                     @endforeach
+                    <span class="message1"></span>
+                    <ul class="comments__list show_comment">
+                    </ul>
                     <form class="comments__form">
                         <div class="rating">
                             <span><input type="radio" name="rate_star" id="str5" value="5"><label for="str5" class="fas fa-star"></label></span>
@@ -115,10 +131,11 @@
                             <span><input type="radio" name="rate_star" id="str1" value="1"><label for="str1" class="fas fa-star"></label></span>
                         </div>
                         <textarea type=""  id="_contend" name="content" class="comment_input" placeholder="Add comment"> </textarea>
-                        <button type="submit" data-song = "{{$song->id}}" data-user="{{auth()->user()->id}}" class="sign__btn" id="submit_c">Send</button>
+                        <button type="submit" data-song = "{{$song->id}}" data-user="{{ Auth::check() ? auth()->user()->id : ''}}" class="sign__btn" id="submit_c">Thêm</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
