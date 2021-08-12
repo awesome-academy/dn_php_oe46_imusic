@@ -111,7 +111,7 @@
                                     <td class="product-text">
                                       <a href="">
                                         <div class="product-info">
-                                          <p class="new-noti">@lang('home.newAlbumNoti')</p>
+                                          <p class="new-noti">@lang('home.newSongNoti'):</p>
                                           <h5 class="noti-name">{{$notification->data['name']}}</h5>
                                           <p class="noti-time">{{$notification->created_at->diffForHumans()}}</p>
                                         </div>

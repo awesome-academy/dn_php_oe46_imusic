@@ -13,38 +13,41 @@ var channel = pusher.subscribe('NotificationEventSong');
 var count = parseInt($('.cart-items').html())
 channel.bind('send-message', function(data) {
     var newNotificationHtml = `
-    <tr class="notif-count" id="detail-noti" data-song="${data.id}">
+    <tr class="notif-count" id="detail-noti" data-id="${data['song'].id}" data-song="${data['song'].id}">
         <td class="product-pic">
             <a href="">
-                <img src="/storage/${data.image}" alt="">
+                <img src="/storage/${data['song'].image}" alt="">
             </a>
         </td>
         <td class="product-text">
             <a href="">
                 <div class="product-info">
-                    <span>${data.name}</span>
+                 <p class="new-noti"> ${data['title']} <span>${data['song'].name}</span></p>
+                    <h5>${data['time']}</h5>
                 </div>
             </a>
         </td>
     </tr>
+
     `;
     count+=1;
     $('.cart-items').html(count);
     $('.new-notify').prepend(newNotificationHtml);
     detailSong()
 });
-
 function markAsRead()
 {
     $('.notif-count').on('click', function(e){
+    $(_this).addClass('read');
     e.preventDefault()
     var id = $(this).data('id')
+    var _this = $(this);
     $.ajax({
         method :'POST',
-        url :'markAsRead/'+id,
-        data:{'id' : id},
+        url :'song/markAsRead/'+id,
         success: function(data) {
-            $('.cart-items').html(data)
+            $('.cart-items').html(count)
+            $(_this).addClass('read');
         }
     });
    });
@@ -370,3 +373,13 @@ function actionPlaylist()
     });
 }
 detailSong()
+ $('.cart-box').on('click',function(e) {
+    $(this).toggleClass('show');
+    e.stopPropagation();
+});
+
+$(document).on('click', function(e) {
+    if ($(e.target).is('.cart-box') === false) {
+        $('.cart-box').removeClass('show');
+    }
+});

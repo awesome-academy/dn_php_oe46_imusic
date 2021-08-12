@@ -77,4 +77,5 @@ return [
     'quarter' => 'Quarter Report',
     'year' => 'Year Report',
     'newAlbumNoti' => 'New album\'s release:',
+    'newSongNoti'=>'iMusic update song new ',
 ];

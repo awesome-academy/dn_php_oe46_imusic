@@ -49,7 +49,7 @@ function readNotify() {
             type:'post',
             url: '/album/notification/'+noti_id,
             success: function(data)
-            {   
+            {
                 $('.cart-items').html(count_noti);
                 album.addClass('read');
                 $(_this).addClass('read');

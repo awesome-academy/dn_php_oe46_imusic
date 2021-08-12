@@ -1199,7 +1199,6 @@ max-width: 400px;
 
 .dropdown_r:hover .dropdown-content_r {display: block;
                                    display:line}
-
 .notification {
     position: relative;
     z-index: 999;

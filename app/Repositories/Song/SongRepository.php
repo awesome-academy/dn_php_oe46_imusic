@@ -183,17 +183,14 @@ class SongRepository extends BaseRepository implements ISongRepository
             $options
         );
 
-        $pusher->trigger('NotificationEventSong', 'send-message', $song);
+        $time = $song->created_at->diffForHumans();
+        $title = trans('home.newSongNoti');
+
+        $pusher->trigger('NotificationEventSong', 'send-message', ['song' =>$song,'time'=>$time, 'title'=>$title]);
     }
 
     public function markAsRead($notificationId)
     {
-        DB::table('notifications')->where('id', $notificationId)->update(['read_at'=>Carbon::now()]);
-
-        $countNotRead = DB::table('notifications')->where('read_at', config('app.notRead'))
-        ->where('notifiable_id', auth()->user()->id)
-        ->count();
-
-        return $countNotRead;
+         $noti = DB::table('notifications')->where('id', $notificationId)->update(['read_at' => Carbon::now()]);
     }
 }
